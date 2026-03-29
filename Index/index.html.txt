@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personality Quiz – 5 Questions</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Poppins', sans-serif; margin:0; padding:0; background: linear-gradient(135deg, #080808, #1a1a1a); color: #fafafa; }
+header { text-align: center; padding: 20px 10px; background-color: #080808; box-shadow:0 4px 10px rgba(0,0,0,0.5);}
+header img { max-width: 140px; margin-bottom:10px;}
+header h1 { color:#f49c04; font-weight:600; margin:0;}
+.container { max-width:650px; margin:30px auto; padding:25px; background:#2a2a2a; border-radius:16px; box-shadow:0 10px 20px rgba(0,0,0,0.4);}
+.question, #nameInputSection { margin-bottom:25px; background:#3a3a38; padding:20px; border-radius:12px; box-shadow: inset 0 0 8px rgba(0,0,0,0.3);}
+.question h3, #nameInputSection h3 { margin-bottom:12px; color:#f7b31e; font-weight:600;}
+.options button { display:block; width:100%; margin:8px 0; padding:12px; border:none; border-radius:10px; background: linear-gradient(90deg,#f49c04,#f7b31e); color:#080808; font-weight:500; cursor:pointer; transition:0.2s;}
+.options button:hover { transform: scale(1.05); box-shadow:0 5px 15px rgba(244,156,4,0.5);}
+input[name="username"] { width:100%; padding:12px; border-radius:10px; border:none; margin-bottom:12px; font-size:16 }
+#resultCard { display:none; text-align:center; background:#1a1a1a; padding:30px 20px; border-radius:18px; box-shadow:0 12px 25px rgba(0,0,0,0.5);}
+#resultCard h2 { color:#f49c04; font-size:28px; margin-bottom:15px;}
+#resultCard p { color:#e5e4e2; font-size:16px; margin-bottom:25px; white-space: pre-line;}
+#resultCard img.logo { width:160px; margin-bottom:10px;}
+#resultCard p.powered { color:#f7b31e; font-weight:600; margin-bottom:20px; }
+.buttons button { margin:8px; padding:12px 18px; border:none; border-radius:12px; background:linear-gradient(90deg,#f49c04,#f7b31e); color:#080808; font-weight:600; cursor:pointer; transition:0.2s;}
+.buttons button:hover { transform:scale(1.05); box-shadow:0 6px 18px rgba(244,156,4,0.5); }
+.fade { animation: fadeIn 0.4s ease-in; }
+@keyframes fadeIn { from {opacity:0; transform: translateY(10px);} to {opacity:1; transform: translateY(0);} }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="GDS" alt="Golden Developer Logo">
+  <h1>How Does Your Mind Work?</h1>
+</header>
+
+<div class="container" id="quizContainer">
+
+  <div id="nameInputSection" class="fade">
+    <h3>Enter your name to start the quiz:</h3>
+    <input type="text" id="username" placeholder="Your Name">
+    <button onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <!-- Questions 1-5 -->
+  <div class="question fade" id="q1" style="display:none;">
+    <h3>1. When faced with a tough project problem, your first move is:</h3>
+    <div class="options">
+      <button onclick="selectAnswer('Analytical')">Analyze all the details before taking action</button>
+      <button onclick="selectAnswer('Creative')">Try quick solutions and see what works</button>
+      <button onclick="selectAnswer('Balanced')">Ask others for opinions and gather insights</button>
+    </div>
+  </div>
+  <div class="question fade" id="q2" style="display:none;">
+    <h3>2. If your team asks for a creative solution, you usually:</h3>
+    <div class="options">
+      <button onclick="selectAnswer('Creative')">Come up with new, unusual ideas even if risky</button>
+      <button onclick="selectAnswer('Balanced')">Mix creativity with logic</button>
+      <button onclick="selectAnswer('Analytical')">Stick to simple and practical solutions</button>
+    </div>
+  </div>
+  <div class="question fade" id="q3" style="display:none;">
+    <h3>3. When making an important decision, you tend to:</h3>
+    <div class="options">
+      <button onclick="selectAnswer('Analytical')">Build a full plan and follow it step by step</button>
+      <button onclick="selectAnswer('Creative')">Trust your gut and act quickly</button>
+      <button onclick="selectAnswer('Balanced')">Balance logic and intuition</button>
+    </div>
+  </div>
+  <div class="question fade" id="q4" style="display:none;">
+    <h3>4. What do you enjoy most in work or studies?</h3>
+    <div class="options">
+      <button onclick="selectAnswer('Analytical')">Analyzing data and solving complex problems</button>
+      <button onclick="selectAnswer('Creative')">Coming up with new ideas and experimenting</button>
+      <button onclick="selectAnswer('Balanced')">Organizing and keeping track of details</button>
+    </div>
+  </div>
+  <div class="question fade" id="q5" style="display:none;">
+    <h3>5. When something unexpected happens, your first reaction is:</h3>
+    <div class="options">
+      <button onclick="selectAnswer('Analytical')">Stay calm and think through possible solutions</button>
+      <button onclick="selectAnswer('Creative')">Act immediately and adapt on the fly</button>
+      <button onclick="selectAnswer('Balanced')">Seek advice from others before deciding</button>
+    </div>
+  </div>
+
+</div>
+
+<div id="resultCard">
+  <canvas id="resultCanvas" style="display:none;"></canvas>
+  <img class="logo" src="GDS" alt="Golden Developer Logo">
+  <p class="powered">Powered by Golden Developer Technology Systems</p>
+  <h2 id="resultTitle"></h2>
+  <p id="resultDescription"></p>
+  <div class="buttons">
+    <button onclick="https://goldendeveloper.net/careers/='#'">Explore Careers</button>
+    <button onclick="https://goldendeveloper.net/careers/='#'">Apply for Internship</button>
+    <button onclick="generateShareImageStory()">Share My Result</button>
+  </div>
+</div>
+
+<script>
+let currentQuestion = 1;
+let username = "";
+let scores = {Analytical:0, Creative:0, Balanced:0};
+
+function startQuiz() {
+  const input = document.getElementById('username').value.trim();
+  if(input === "") { alert("Please enter your name"); return; }
+  username = input;
+  document.getElementById('nameInputSection').style.display = 'none';
+  document.getElementById('q1').style.display = 'block';
+}
+
+function selectAnswer(type) {
+  scores[type]++;
+  document.getElementById('q'+currentQuestion).style.display = 'none';
+  currentQuestion++;
+  if(currentQuestion <= 5) {
+    document.getElementById('q'+currentQuestion).style.display = 'block';
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  let maxType = Object.keys(scores).reduce((a,b) => scores[a] > scores[b] ? a : b);
+
+  let descriptions = {
+    Analytical: `Analytical / Logical Thinker – focuses on data and careful planning.\n
+Traits of suitable roles:\n
+- Solve complex problems and analyze data\n
+- Make decisions based on facts and numbers\n
+- Plan and organize long-term\n
+- Focus on details and accuracy\n
+- Work independently with decision-making freedom`,
+    
+    Creative: `Creative / Innovative Thinker – loves experimenting and new ideas.\n
+Traits of suitable roles:\n
+- Generate new and innovative ideas\n
+- Experiment with different solutions and adapt quickly\n
+- Think outside the box\n
+- Enjoy flexible, non-routine environments\n
+- Comfortable with calculated risks and trying new approaches`,
+    
+    Balanced: `Balanced / Organized Thinker – combines planning with adaptability.\n
+Traits of suitable roles:\n
+- Combine analytical and creative thinking for balanced decisions\n
+- Organize projects and follow details precisely\n
+- Work well in teams and communicate effectively\n
+- Manage time and resources efficiently\n
+- Maintain stability while adapting when necessary`
+  };
+
+  document.getElementById('resultTitle').innerText = username + " – " + maxType + " Thinker";
+  document.getElementById('resultDescription').innerText = descriptions[maxType];
+  document.getElementById('quizContainer').style.display = 'none';
+  document.getElementById('resultCard').style.display = 'block';
+}
+
+// Canvas & Web Share API
+async function generateShareImageStory() {
+  const canvas = document.getElementById('resultCanvas');
+  canvas.width = 1080;
+  canvas.height = 1920;
+  const ctx = canvas.getContext('2d');
+
+  const gradient = ctx.createLinearGradient(0,0,1080,1920);
+  gradient.addColorStop(0, "#080808");
+  gradient.addColorStop(1, "#1a1a1a");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0,0,1080,1920);
+
+  let logo = new Image();
+  logo.src = "YOUR_LOGO_URL_HERE";
+  logo.onload = () => {
+    ctx.drawImage(logo, 840, 40, 200, 100);
+    ctx.fillStyle = "#f7b31e";
+    ctx.font = "28px Poppins";
+    ctx.fillText("Powered by Golden Developer Technology Systems", 60, 160);
+
+    ctx.fillStyle = "#f49c04";
+    ctx.font = "bold 72px Poppins";
+    wrapText(ctx, document.getElementById('resultTitle').innerText, 60, 300, 960, 80);
+
+    ctx.fillStyle = "#e5e4e2";
+    ctx.font = "36px Poppins";
+    wrapText(ctx, document.getElementById('resultDescription').innerText, 60, 500, 960, 50);
+
+    const imageFile = dataURLtoFile(canvas.toDataURL('image/png'), username+'_MindType.png');
+
+    if(navigator.canShare && navigator.canShare({ files: [imageFile] })) {
+      navigator.share({ files:[imageFile], title:'My Mind Type', text: username+"'s Personality Result" })
+      .catch(err => alert('Sharing failed: '+err));
+    } else {
+      const link = document.createElement('a');
+      link.download = username+"_MindType.png";
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      alert("Your Story image is ready! Upload manually to Instagram, Facebook, WhatsApp, LinkedIn, etc.");
+    }
+  };
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+  const words = text.split(' ');
+  let line = '';
+  for(let n=0; n<words.length; n++){
+    let testLine = line + words[n] + ' ';
+    let metrics = ctx.measureText(testLine);
+    if(metrics.width > maxWidth && n>0){
+      ctx.fillText(line, x, y);
+      line = words[n] + ' ';
+      y += lineHeight;
+    } else { line = testLine; }
+  }
+  ctx.fillText(line, x, y);
+}
+
+function dataURLtoFile(dataurl, filename) {
+  let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+  while(n--){ u8arr[n] = bstr.charCodeAt(n); }
+  return new File([u8arr], filename, {type:mime});
+}
+</script>
+
+</body>
+</html>
