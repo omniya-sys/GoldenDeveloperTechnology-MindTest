@@ -5,114 +5,159 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Golden Developer Mind Test</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
+/* ================= BODY & CONTAINER ================= */
 body{
     font-family:'Cairo',sans-serif;
-    background:#f5f7fb;
     margin:0;
     padding:0;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    min-height:100vh;
+    background: linear-gradient(to bottom, #080808, #1a1a1a);
+    color:#fafafa;
 }
 .container{
-    background:#fff;
-    padding:30px;
-    border-radius:12px;
+    background:#2a2a2a;
+    padding:40px;
+    border-radius:16px;
     width:600px;
     max-width:90%;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
     text-align:center;
 }
 .logo{
     width:160px;
-    margin-bottom:15px;
-}
-h1{
     margin-bottom:20px;
 }
-.question{
-    margin:20px 0;
-    text-align:left;
+
+/* ================= HEADINGS ================= */
+h1{
+    margin-bottom:25px;
+    color:#f49c04;
 }
-button{
-    background:#000;
-    color:#fff;
+.question p{
+    font-weight:600;
+    margin-bottom:10px;
+}
+.question label{
+    display:block;
+    margin-bottom:8px;
+    cursor:pointer;
+}
+
+/* ================= INPUTS ================= */
+#username{
+    width:100%;
+    padding:12px;
+    margin-bottom:20px;
+    border-radius:8px;
     border:none;
-    padding:12px 18px;
-    border-radius:6px;
+    outline:none;
+    font-size:16px;
+    color:#080808;
+}
+
+/* ================= BUTTONS ================= */
+button{
+    background:#f49c04;
+    color:#080808;
+    border:none;
+    padding:14px 20px;
+    border-radius:8px;
     cursor:pointer;
     margin-top:15px;
-    font-size:15px;
+    font-size:16px;
+    font-weight:600;
+    transition: 0.2s;
 }
 button:hover{
-    opacity:.85;
+    opacity:0.85;
 }
+
+/* ================= RESULT CARD ================= */
 .result{
     display:none;
     margin-top:20px;
-    text-align:left;
+    background:#1a1a1a;
+    padding:25px;
+    border-radius:12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    text-align:center;
 }
+.result h2{
+    color:#f49c04;
+    margin-bottom:15px;
+}
+.result p{
+    color:#e5e4e2;
+    line-height:1.6;
+}
+
+/* ================= SHARE BUTTONS ================= */
 .share-buttons{
     margin-top:20px;
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:12px;
 }
 .share-buttons a,
 .share-buttons button{
-    background:#000;
-    color:#fff;
+    background:#f7b31e;
+    color:#080808;
     text-decoration:none;
-    padding:10px;
-    border-radius:6px;
+    padding:12px;
+    border-radius:8px;
+    font-weight:600;
     text-align:center;
+}
+.share-buttons a:hover,
+.share-buttons button:hover{
+    opacity:0.85;
 }
 </style>
 </head>
-
 <body>
+
 <div class="container">
-<img src="logo.png" class="logo">
-<h1>Golden Developer Mind Test</h1>
+    <img src="logo.png" class="logo">
+    <h1>Golden Developer Mind Test</h1>
 
-<div id="quizContainer">
-<input id="username" placeholder="Enter your name" style="width:100%;padding:10px;margin-bottom:20px;">
+    <div id="quizContainer">
+        <input id="username" placeholder="Enter your name">
 
-<div class="question">
-<p>1. When facing a complex problem, you:</p>
-<label><input type="radio" name="q1" value="Analytical"> Analyze data carefully</label><br>
-<label><input type="radio" name="q1" value="Creative"> Try new ideas</label><br>
-<label><input type="radio" name="q1" value="Balanced"> Mix logic with creativity</label>
-</div>
+        <div class="question">
+            <p>1. When facing a complex problem, you:</p>
+            <label><input type="radio" name="q1" value="Analytical"> Analyze data carefully</label>
+            <label><input type="radio" name="q1" value="Creative"> Try new ideas</label>
+            <label><input type="radio" name="q1" value="Balanced"> Mix logic with creativity</label>
+        </div>
 
-<div class="question">
-<p>2. Your preferred work style:</p>
-<label><input type="radio" name="q2" value="Analytical"> Structured planning</label><br>
-<label><input type="radio" name="q2" value="Creative"> Flexible and experimental</label><br>
-<label><input type="radio" name="q2" value="Balanced"> Organized but adaptable</label>
-</div>
+        <div class="question">
+            <p>2. Your preferred work style:</p>
+            <label><input type="radio" name="q2" value="Analytical"> Structured planning</label>
+            <label><input type="radio" name="q2" value="Creative"> Flexible and experimental</label>
+            <label><input type="radio" name="q2" value="Balanced"> Organized but adaptable</label>
+        </div>
 
-<div class="question">
-<p>3. Your strongest skill:</p>
-<label><input type="radio" name="q3" value="Analytical"> Data analysis</label><br>
-<label><input type="radio" name="q3" value="Creative"> Idea generation</label><br>
-<label><input type="radio" name="q3" value="Balanced"> Coordination and management</label>
-</div>
+        <div class="question">
+            <p>3. Your strongest skill:</p>
+            <label><input type="radio" name="q3" value="Analytical"> Data analysis</label>
+            <label><input type="radio" name="q3" value="Creative"> Idea generation</label>
+            <label><input type="radio" name="q3" value="Balanced"> Coordination and management</label>
+        </div>
 
-<button onclick="calculateResult()">See My Result</button>
-</div>
+        <button onclick="calculateResult()">See My Result</button>
+    </div>
 
-<div id="resultCard" class="result">
-<h2 id="resultTitle"></h2>
-<p id="resultDescription"></p>
-</div>
+    <div id="resultCard" class="result">
+        <h2 id="resultTitle"></h2>
+        <p id="resultDescription"></p>
+    </div>
 </div>
 
 <script>
-// ضع هنا رابط GitHub Pages بعد رفع الملفات
 const PAGE_URL="https://omniya-sys.github.io/GoldenDeveloperTechnology-MindTest/"
 
 let scores={Analytical:0, Creative:0, Balanced:0}
@@ -138,16 +183,16 @@ function showResult(){
     document.getElementById("resultTitle").innerText=username+" – "+maxType+" Thinker"
     document.getElementById("resultDescription").innerText=descriptions[maxType]
     document.getElementById("quizContainer").style.display="none"
+    document.getElementById("resultCard").style.display="block"
 
-    // Share buttons
     const text=`Just discovered my thinking style at the Golden Developer Mind Test.\nAre you an Analytical, Creative, or Balanced thinker?\nTake the test 👇\n#goldendeveloper`
     const shareText=encodeURIComponent(text + " " + PAGE_URL)
     const shareURL=encodeURIComponent(PAGE_URL)
 
     let html=`
     <div class="share-buttons">
-    <a href="https://www.facebook.com/sharer/sharer.php?u=${shareURL}&quote=${shareText}" target="_blank">Share on Facebook</a>
-    <a href="https://api.whatsapp.com/send?text=${shareText}" target="_blank">Share on WhatsApp</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${shareURL}&quote=${shareText}" target="_blank">Share on Facebook</a>
+        <a href="https://api.whatsapp.com/send?text=${shareText}" target="_blank">Share on WhatsApp</a>
     </div>
     `
     const existing=document.querySelector(".share-buttons")
@@ -155,5 +200,6 @@ function showResult(){
     document.getElementById("resultCard").insertAdjacentHTML("beforeend",html)
 }
 </script>
+
 </body>
 </html>
