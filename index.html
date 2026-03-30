@@ -254,32 +254,68 @@ function calculateResult(){
 }
 
 function showResult(){
+
     let sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1])
     let dominant = sorted[0][0]
-    let descriptions={
-        Analytical:"Structured, data-driven, methodical. Enjoys research & precise problem-solving.",
-        Creative:"Innovative, experimental, idea-focused. Loves creating and designing solutions.",
-        People:"Supportive, service-oriented, collaborative. Excels in helping & coordinating others.",
-        Leadership:"Strategic, decision-making, team-driven. Takes charge and delivers results."
+
+    const profiles={
+        Analytical:{
+            title:"Analytical Thinker",
+            text:"Your mind is structured and data-driven. You naturally analyze situations, identify patterns, and build logical solutions. You are most effective in environments where precision, research, and systematic thinking are valued.",
+            jobs:"Projects involving research, data analysis, systems design, strategy planning, or technical problem solving."
+        },
+
+        Creative:{
+            title:"Creative Innovator",
+            text:"Your mind thrives on ideas, imagination, and experimentation. You enjoy exploring possibilities, designing new concepts, and thinking beyond traditional solutions.",
+            jobs:"Creative projects, product innovation, design thinking, marketing strategy, content creation, or concept development."
+        },
+
+        People:{
+            title:"People-Focused Collaborator",
+            text:"You naturally connect with others and enjoy supporting teams. Your strength lies in communication, collaboration, and understanding human needs.",
+            jobs:"Projects involving teamwork, client relations, community initiatives, service design, or collaborative environments."
+        },
+
+        Leadership:{
+            title:"Strategic Leader",
+            text:"Your mind focuses on direction, results, and impact. You naturally organize people, make decisions, and move projects forward.",
+            jobs:"Strategic initiatives, project management, operations leadership, business development, or team leadership roles."
+        }
     }
-    let profileHTML=`<h2>${username}'s Profile</h2>`
-    sorted.forEach(([axis,score])=>{
-        profileHTML+=`<div class="axis"><h3>${axis} (${score} pts)</h3><p>${descriptions[axis]}</p></div>`
-    })
+
+    let profile = profiles[dominant]
+
+    let resultHTML = `
+        <h2>${username} – ${profile.title}</h2>
+        <p style="margin-top:15px;">
+        ${profile.text}
+        </p>
+
+        <p style="margin-top:15px;">
+        <strong>Projects and work environments that suit you best:</strong><br>
+        ${profile.jobs}
+        </p>
+    `
+
     document.getElementById("quizContainer").style.display="none"
+
     let resultCard=document.getElementById("resultCard")
-    resultCard.innerHTML=profileHTML
+    resultCard.innerHTML=resultHTML
+    resultCard.style.display="block"
 
-    let text=`Check my Career Profile at Golden Developer Mind Test! #GoldenDeveloper`
-    let shareText=encodeURIComponent(text+" "+PAGE_URL)
-    let shareURL=encodeURIComponent(PAGE_URL)
+    const text=`I discovered my work mindset at the Golden Developer Career Test. Try it yourself!`
+    const shareText=encodeURIComponent(text+" "+PAGE_URL)
+    const shareURL=encodeURIComponent(PAGE_URL)
 
-    let html=`<div class="share-buttons">
+    let shareHTML=`
+    <div class="share-buttons">
         <a href="https://www.facebook.com/sharer/sharer.php?u=${shareURL}&quote=${shareText}" target="_blank">Share on Facebook</a>
         <a href="https://api.whatsapp.com/send?text=${shareText}" target="_blank">Share on WhatsApp</a>
-    </div>`
-    resultCard.insertAdjacentHTML("beforeend",html)
-    resultCard.style.display="block"
+    </div>
+    `
+
+    resultCard.insertAdjacentHTML("beforeend",shareHTML)
 }
 </script>
 
