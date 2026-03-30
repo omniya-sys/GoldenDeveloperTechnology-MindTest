@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Golden Developer Mind Test</title>
+<title>Golden Developer Career Personality Test</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ================= BODY & CONTAINER ================= */
 body{
     font-family:'Cairo',sans-serif;
     margin:0;
@@ -20,34 +19,39 @@ body{
 }
 .container{
     background:#2a2a2a;
-    padding:40px;
+    padding:30px;
     border-radius:16px;
-    width:600px;
-    max-width:90%;
+    width:700px;
+    max-width:95%;
     box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-    text-align:center;
 }
 .logo{
-    width:160px;
-    margin-bottom:20px;
+    width:140px;
+    display:block;
+    margin:0 auto 20px auto;
 }
-
-/* ================= HEADINGS ================= */
 h1{
-    margin-bottom:25px;
+    text-align:center;
     color:#f49c04;
+    margin-bottom:25px;
+    font-size:1.8rem;
+}
+.question{
+    margin-bottom:20px;
 }
 .question p{
     font-weight:600;
     margin-bottom:10px;
+    font-size:1rem;
 }
 .question label{
     display:block;
     margin-bottom:8px;
     cursor:pointer;
+    padding-left:10px;
+    text-align:left;
+    font-size:0.95rem;
 }
-
-/* ================= INPUTS ================= */
 #username{
     width:100%;
     padding:12px;
@@ -58,8 +62,6 @@ h1{
     font-size:16px;
     color:#080808;
 }
-
-/* ================= BUTTONS ================= */
 button{
     background:#f49c04;
     color:#080808;
@@ -70,13 +72,12 @@ button{
     margin-top:15px;
     font-size:16px;
     font-weight:600;
+    width:100%;
     transition: 0.2s;
 }
 button:hover{
     opacity:0.85;
 }
-
-/* ================= RESULT CARD ================= */
 .result{
     display:none;
     margin-top:20px;
@@ -84,18 +85,26 @@ button:hover{
     padding:25px;
     border-radius:12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-    text-align:center;
 }
 .result h2{
     color:#f49c04;
     margin-bottom:15px;
+    text-align:center;
 }
-.result p{
+.result .axis{
+    margin-bottom:15px;
+    text-align:left;
+}
+.result .axis h3{
+    margin:5px 0;
+    color:#f7b31e;
+    font-size:1rem;
+}
+.result .axis p{
     color:#e5e4e2;
-    line-height:1.6;
+    line-height:1.5;
+    font-size:0.95rem;
 }
-
-/* ================= SHARE BUTTONS ================= */
 .share-buttons{
     margin-top:20px;
     display:flex;
@@ -111,93 +120,166 @@ button:hover{
     border-radius:8px;
     font-weight:600;
     text-align:center;
+    font-size:1rem;
 }
 .share-buttons a:hover,
 .share-buttons button:hover{
     opacity:0.85;
+}
+
+@media (max-width:768px){
+    .container{ padding:20px; }
+    h1{ font-size:1.5rem; }
+    .question p, .question label{ font-size:0.95rem; }
+    button{ font-size:15px; padding:12px; }
+}
+@media (max-width:480px){
+    h1{ font-size:1.3rem; }
+    .question p, .question label{ font-size:0.9rem; }
+    button{ font-size:14px; padding:10px; }
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="logo.png" class="logo">
-    <h1>Golden Developer Mind Test</h1>
+    <img src="logo.png" class="logo" alt="Golden Developer Logo">
+    <h1>Professional Career / Project Personality Test</h1>
 
     <div id="quizContainer">
         <input id="username" placeholder="Enter your name">
 
+        <!-- Questions 1-10 -->
         <div class="question">
-            <p>1. When facing a complex problem, you:</p>
-            <label><input type="radio" name="q1" value="Analytical"> Analyze data carefully</label>
-            <label><input type="radio" name="q1" value="Creative"> Try new ideas</label>
-            <label><input type="radio" name="q1" value="Balanced"> Mix logic with creativity</label>
+            <p>1. What excites you most in a project?</p>
+            <label><input type="checkbox" name="q1" value="Creative"> Collaborating & brainstorming innovative solutions</label>
+            <label><input type="checkbox" name="q1" value="Analytical"> Analyzing data or solving technical problems</label>
+            <label><input type="checkbox" name="q1" value="People"> Creating or improving tangible products/tools</label>
+            <label><input type="checkbox" name="q1" value="Leadership"> Leading the team/project</label>
         </div>
 
         <div class="question">
-            <p>2. Your preferred work style:</p>
-            <label><input type="radio" name="q2" value="Analytical"> Structured planning</label>
-            <label><input type="radio" name="q2" value="Creative"> Flexible and experimental</label>
-            <label><input type="radio" name="q2" value="Balanced"> Organized but adaptable</label>
+            <p>2. Which environment makes you productive?</p>
+            <label><input type="checkbox" name="q2" value="Analytical"> Quiet, organized workspace</label>
+            <label><input type="checkbox" name="q2" value="Creative"> Fast-paced, changing environment</label>
+            <label><input type="checkbox" name="q2" value="People"> Open, creative studio</label>
+            <label><input type="checkbox" name="q2" value="Leadership"> Outdoors/on-site with products</label>
         </div>
 
         <div class="question">
-            <p>3. Your strongest skill:</p>
-            <label><input type="radio" name="q3" value="Analytical"> Data analysis</label>
-            <label><input type="radio" name="q3" value="Creative"> Idea generation</label>
-            <label><input type="radio" name="q3" value="Balanced"> Coordination and management</label>
+            <p>3. What gives you greatest satisfaction?</p>
+            <label><input type="checkbox" name="q3" value="Analytical"> Solving complex problems</label>
+            <label><input type="checkbox" name="q3" value="Creative"> Generating new ideas</label>
+            <label><input type="checkbox" name="q3" value="People"> Helping others / providing service</label>
+            <label><input type="checkbox" name="q3" value="Leadership"> Leading team & achieving results</label>
         </div>
 
-        <button onclick="calculateResult()">See My Result</button>
+        <div class="question">
+            <p>4. Facing a new, complex problem, you:</p>
+            <label><input type="checkbox" name="q4" value="Analytical"> Follow procedures & best practices</label>
+            <label><input type="checkbox" name="q4" value="Creative"> Invent a new solution</label>
+            <label><input type="checkbox" name="q4" value="People"> Consult others</label>
+            <label><input type="checkbox" name="q4" value="Leadership"> Guide the team to overcome it</label>
+        </div>
+
+        <div class="question">
+            <p>5. Preferred daily work routine?</p>
+            <label><input type="checkbox" name="q5" value="Analytical"> Highly structured with clear plan</label>
+            <label><input type="checkbox" name="q5" value="Creative"> Mix of planned & unexpected tasks</label>
+            <label><input type="checkbox" name="q5" value="People"> Fast-paced, tight deadlines</label>
+            <label><input type="checkbox" name="q5" value="Leadership"> Flexible & adaptive</label>
+        </div>
+
+        <div class="question">
+            <p>6. In a team, your natural role?</p>
+            <label><input type="checkbox" name="q6" value="Analytical"> Planner / organizer</label>
+            <label><input type="checkbox" name="q6" value="Creative"> Creative thinker / innovator</label>
+            <label><input type="checkbox" name="q6" value="People"> Analyst / quality controller</label>
+            <label><input type="checkbox" name="q6" value="Leadership"> Communicator / leader</label>
+        </div>
+
+        <div class="question">
+            <p>7. What comes naturally to you?</p>
+            <label><input type="checkbox" name="q7" value="Analytical"> Analyzing data & conclusions</label>
+            <label><input type="checkbox" name="q7" value="Creative"> Generating ideas & creative solutions</label>
+            <label><input type="checkbox" name="q7" value="People"> Coordinating people/resources efficiently</label>
+            <label><input type="checkbox" name="q7" value="Leadership"> Motivating & guiding others</label>
+        </div>
+
+        <div class="question">
+            <p>8. Important factor when choosing a project?</p>
+            <label><input type="checkbox" name="q8" value="Analytical"> Clear structure & reliable procedures</label>
+            <label><input type="checkbox" name="q8" value="Creative"> Opportunities to innovate/explore ideas</label>
+            <label><input type="checkbox" name="q8" value="People"> Opportunities to help/impact others</label>
+            <label><input type="checkbox" name="q8" value="Leadership"> Opportunities to lead & drive results</label>
+        </div>
+
+        <div class="question">
+            <p>9. Handling pressure or challenges?</p>
+            <label><input type="checkbox" name="q9" value="Analytical"> Stay calm & follow plan</label>
+            <label><input type="checkbox" name="q9" value="Creative"> Adapt & innovate</label>
+            <label><input type="checkbox" name="q9" value="People"> Work with others to distribute tasks</label>
+            <label><input type="checkbox" name="q9" value="Leadership"> Take charge & guide team</label>
+        </div>
+
+        <div class="question">
+            <p>10. If free to choose work/project, you focus on?</p>
+            <label><input type="checkbox" name="q10" value="Analytical"> Analytical / research projects</label>
+            <label><input type="checkbox" name="q10" value="Creative"> Creative / design projects</label>
+            <label><input type="checkbox" name="q10" value="People"> Service / people-focused projects</label>
+            <label><input type="checkbox" name="q10" value="Leadership"> Leadership / strategic projects</label>
+        </div>
+
+        <button onclick="calculateResult()">See My Profile</button>
     </div>
 
     <div id="resultCard" class="result">
         <h2 id="resultTitle"></h2>
-        <p id="resultDescription"></p>
     </div>
 </div>
 
 <script>
 const PAGE_URL="https://omniya-sys.github.io/GoldenDeveloperTechnology-MindTest/"
-
-let scores={Analytical:0, Creative:0, Balanced:0}
 let username=""
+let scores={Analytical:0, Creative:0, People:0, Leadership:0}
 
 function calculateResult(){
     username=document.getElementById("username").value || "User"
-    let answers=["q1","q2","q3"]
-    answers.forEach(q=>{
-        let selected=document.querySelector(`input[name=${q}]:checked`)
-        if(selected) scores[selected.value]++
-    })
+    scores={Analytical:0, Creative:0, People:0, Leadership:0}
+    for(let i=1;i<=10;i++){
+        let checked=document.querySelectorAll(`input[name=q${i}]:checked`)
+        checked.forEach(c=>{ scores[c.value]++ })
+    }
     showResult()
 }
 
 function showResult(){
-    let maxType=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b)
+    let sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1])
+    let dominant = sorted[0][0]
     let descriptions={
-        Analytical:`Analytical / Logical Thinker – focuses on data and careful planning.\n• Data Analyst\n• Software Engineer\n• Systems Architect\n• Financial Analyst\n• Research Specialist`,
-        Creative:`Creative / Innovative Thinker – loves experimenting and generating new ideas.\n• Product Designer\n• Marketing Strategist\n• UX Designer\n• Creative Director\n• Innovation Specialist`,
-        Balanced:`Balanced / Organized Thinker – combines structure with adaptability.\n• Project Manager\n• Product Manager\n• Operations Manager\n• Business Analyst\n• Team Leader`
+        Analytical:"Structured, data-driven, methodical. Enjoys research & precise problem-solving.",
+        Creative:"Innovative, experimental, idea-focused. Loves creating and designing solutions.",
+        People:"Supportive, service-oriented, collaborative. Excels in helping & coordinating others.",
+        Leadership:"Strategic, decision-making, team-driven. Takes charge and delivers results."
     }
-    document.getElementById("resultTitle").innerText=username+" – "+maxType+" Thinker"
-    document.getElementById("resultDescription").innerText=descriptions[maxType]
+    let profileHTML=`<h2>${username}'s Profile</h2>`
+    sorted.forEach(([axis,score])=>{
+        profileHTML+=`<div class="axis"><h3>${axis} (${score} pts)</h3><p>${descriptions[axis]}</p></div>`
+    })
     document.getElementById("quizContainer").style.display="none"
-    document.getElementById("resultCard").style.display="block"
+    let resultCard=document.getElementById("resultCard")
+    resultCard.innerHTML=profileHTML
 
-    const text=`Just discovered my thinking style at the Golden Developer Mind Test.\nAre you an Analytical, Creative, or Balanced thinker?\nTake the test 👇\n#goldendeveloper`
-    const shareText=encodeURIComponent(text + " " + PAGE_URL)
-    const shareURL=encodeURIComponent(PAGE_URL)
+    let text=`Check my Career Profile at Golden Developer Mind Test! #GoldenDeveloper`
+    let shareText=encodeURIComponent(text+" "+PAGE_URL)
+    let shareURL=encodeURIComponent(PAGE_URL)
 
-    let html=`
-    <div class="share-buttons">
+    let html=`<div class="share-buttons">
         <a href="https://www.facebook.com/sharer/sharer.php?u=${shareURL}&quote=${shareText}" target="_blank">Share on Facebook</a>
         <a href="https://api.whatsapp.com/send?text=${shareText}" target="_blank">Share on WhatsApp</a>
-    </div>
-    `
-    const existing=document.querySelector(".share-buttons")
-    if(existing) existing.remove()
-    document.getElementById("resultCard").insertAdjacentHTML("beforeend",html)
+    </div>`
+    resultCard.insertAdjacentHTML("beforeend",html)
+    resultCard.style.display="block"
 }
 </script>
 
