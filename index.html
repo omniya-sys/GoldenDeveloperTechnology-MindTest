@@ -710,23 +710,30 @@ const questions = [
 const archetypes = {
   Analytical: {
     title: "The Systems Thinker",
-    desc: "You're methodical, data-driven, and precision-focused. You thrive when solving structured problems and extracting meaning from complexity. Your superpower is turning ambiguity into clarity.",
-    traits: ["Data-Driven", "Detail-Oriented", "Methodical", "Research-Focused", "Logical", "Precise"]
+    desc: "Your mind works through logic, structure, and analysis. You naturally break down complex problems, identify patterns, and build clear systems to solve them. You perform best in environments that value accuracy, research, and deep thinking.",
+    best: "Best career environments for you include data analysis, engineering, software development, financial analysis, research, and system architecture.",
+    traits: ["Data-Driven","Logical","Detail-Focused","Structured","Analytical","Problem Solver"]
   },
+
   Creative: {
-    title: "The Innovator",
-    desc: "You think in possibilities, not limitations. You're energized by open-ended challenges, love experimenting with ideas, and see connections others miss. You bring originality to everything you touch.",
-    traits: ["Imaginative", "Experimental", "Idea-Rich", "Design-Minded", "Curious", "Expressive"]
+    title: "The Creative Innovator",
+    desc: "Your mind thrives on imagination, exploration, and new ideas. You enjoy experimenting with concepts, building creative solutions, and seeing possibilities others often miss.",
+    best: "You perform best in creative fields such as marketing, product design, branding, innovation strategy, content creation, and concept development.",
+    traits: ["Imaginative","Idea Generator","Innovative","Curious","Design-Oriented","Visionary"]
   },
+
   People: {
-    title: "The Connector",
-    desc: "You're wired for human impact. You excel at understanding needs, building relationships, and creating environments where others succeed. Collaboration and empathy are your greatest strengths.",
-    traits: ["Empathetic", "Collaborative", "Service-Oriented", "Supportive", "Communicative", "Inclusive"]
+    title: "The Human Connector",
+    desc: "You are naturally people-focused. You understand emotions, build relationships easily, and create environments where teams work better together.",
+    best: "You excel in careers such as community management, customer experience, HR, consulting, education, partnerships, and collaborative leadership roles.",
+    traits: ["Empathetic","Collaborative","Supportive","Communicative","Relationship Builder","Team Oriented"]
   },
+
   Leadership: {
-    title: "The Catalyst",
-    desc: "You're built to lead. You take initiative, drive results, and inspire those around you. You see the big picture while keeping the team aligned and moving forward — a natural force multiplier.",
-    traits: ["Decisive", "Strategic", "Goal-Oriented", "Inspiring", "Accountable", "Vision-Driven"]
+    title: "The Strategic Leader",
+    desc: "You naturally take initiative and move people toward goals. You see the big picture, make decisions quickly, and drive projects forward.",
+    best: "You perform best in leadership environments such as project management, entrepreneurship, operations leadership, strategy, and executive decision-making roles.",
+    traits: ["Decisive","Strategic","Goal Driven","Influential","Organized","Action Oriented"]
   }
 };
 
@@ -792,10 +799,11 @@ function calculateResult() {
   const dominant = sorted[0][0];
   const arch = archetypes[dominant];
 
-  document.getElementById("resultName").innerHTML = `<span>${username}</span>`;
+  document.getElementById("resultName").innerHTML =`<span>${username} — ${arch.title}</span>`;
   document.getElementById("dominantTitle").textContent = arch.title;
-  document.getElementById("dominantDesc").textContent = arch.desc;
-
+  document.getElementById("dominantDesc").innerHTML =
+  arch.desc + "<br><br><strong>Where you perform best:</strong><br>" + arch.best;
+ 
   // Score bars
   const max = Math.max(...Object.values(scores), 1);
   const rowsWrap = document.getElementById("scoreRows");
@@ -823,7 +831,9 @@ function calculateResult() {
   traitsWrap.innerHTML = arch.traits.map(t => `<div class="trait-chip">${t}</div>`).join('');
 
   // Share
-  const shareText = encodeURIComponent(`I just discovered I'm "${arch.title}" — find out your Career DNA at Golden Developer! ${PAGE_URL}`);
+  const shareText = encodeURIComponent(
+`I just discovered my Career DNA — I'm "${arch.title}".Curious to know how your mind works? Take the 60-second test and discover your career personality.
+${PAGE_URL}`);
   const shareURL = encodeURIComponent(PAGE_URL);
   document.getElementById("shareGrid").innerHTML = `
     <a href="https://www.facebook.com/sharer/sharer.php?u=${shareURL}&quote=${shareText}" target="_blank" class="share-btn fb">
