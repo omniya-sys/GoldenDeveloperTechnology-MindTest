@@ -3,321 +3,873 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Golden Developer Career Personality Test</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Career Personality Test — Golden Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-body{
-    font-family:'Cairo',sans-serif;
-    margin:0;
-    padding:0;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background: linear-gradient(to bottom, #080808, #1a1a1a);
-    color:#fafafa;
-}
-.container{
-    background:#2a2a2a;
-    padding:30px;
-    border-radius:16px;
-    width:700px;
-    max-width:95%;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-}
-.logo{
-    width:140px;
-    display:block;
-    margin:0 auto 20px auto;
-}
-h1{
-    text-align:center;
-    color:#f49c04;
-    margin-bottom:25px;
-    font-size:1.8rem;
-}
-.question{
-    margin-bottom:20px;
-}
-.question p{
-    font-weight:600;
-    margin-bottom:10px;
-    font-size:1rem;
-}
-.question label{
-    display:block;
-    margin-bottom:8px;
-    cursor:pointer;
-    padding-left:10px;
-    text-align:left;
-    font-size:0.95rem;
-}
-#username{
-    width:100%;
-    padding:12px;
-    margin-bottom:20px;
-    border-radius:8px;
-    border:none;
-    outline:none;
-    font-size:16px;
-    color:#080808;
-}
-button{
-    background:#f49c04;
-    color:#080808;
-    border:none;
-    padding:14px 20px;
-    border-radius:8px;
-    cursor:pointer;
-    margin-top:15px;
-    font-size:16px;
-    font-weight:600;
-    width:100%;
-    transition: 0.2s;
-}
-button:hover{
-    opacity:0.85;
-}
-.result{
-    display:none;
-    margin-top:20px;
-    background:#1a1a1a;
-    padding:25px;
-    border-radius:12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-}
-.result h2{
-    color:#f49c04;
-    margin-bottom:15px;
-    text-align:center;
-}
-.result .axis{
-    margin-bottom:15px;
-    text-align:left;
-}
-.result .axis h3{
-    margin:5px 0;
-    color:#f7b31e;
-    font-size:1rem;
-}
-.result .axis p{
-    color:#e5e4e2;
-    line-height:1.5;
-    font-size:0.95rem;
-}
-.share-buttons{
-    margin-top:20px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-.share-buttons a,
-.share-buttons button{
-    background:#f7b31e;
-    color:#080808;
-    text-decoration:none;
-    padding:12px;
-    border-radius:8px;
-    font-weight:600;
-    text-align:center;
-    font-size:1rem;
-}
-.share-buttons a:hover,
-.share-buttons button:hover{
-    opacity:0.85;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-@media (max-width:768px){
-    .container{ padding:20px; }
-    h1{ font-size:1.5rem; }
-    .question p, .question label{ font-size:0.95rem; }
-    button{ font-size:15px; padding:12px; }
-}
-@media (max-width:480px){
-    h1{ font-size:1.3rem; }
-    .question p, .question label{ font-size:0.9rem; }
-    button{ font-size:14px; padding:10px; }
-}
+  :root {
+    --gold: #f49c04;
+    --gold-light: #fbbf24;
+    --gold-glow: rgba(244,156,4,0.18);
+    --dark: #0c0c0e;
+    --surface: #141416;
+    --card: #1c1c20;
+    --card2: #232328;
+    --border: rgba(255,255,255,0.07);
+    --text: #f0f0f0;
+    --muted: #8a8a9a;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px 48px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Background ambience */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(244,156,4,0.09) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -200px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(244,156,4,0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Floating particles */
+  .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: float-up linear infinite;
+  }
+  @keyframes float-up {
+    0% { opacity: 0; transform: translateY(0) scale(0); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.2; }
+    100% { opacity: 0; transform: translateY(-100vh) scale(1.5); }
+  }
+
+  /* Layout */
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+    animation: fade-down 0.7s ease both;
+  }
+  .logo-wrap {
+    width: 80px; height: 80px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+    box-shadow: 0 0 30px var(--gold-glow);
+  }
+  .logo-wrap img { width: 56px; }
+  .logo-placeholder {
+   font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(244,156,4,0.1);
+    border: 1px solid rgba(244,156,4,0.25);
+    color: var(--gold-light);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+  }
+  .badge span { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+
+  .header h1 {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .header h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    text-align: center;
+    margin-top: 10px;
+    max-width: 440px;
+    line-height: 1.6;
+  }
+
+  /* Progress */
+  .progress-bar-wrap {
+    width: 100%;
+    margin-bottom: 28px;
+    animation: fade-in 0.8s ease both 0.2s;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .progress-track {
+    height: 4px;
+    background: var(--card2);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 100px;
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Card */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    animation: fade-up 0.6s ease both;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+  }
+
+  /* Name input */
+  .name-section {
+    margin-bottom: 28px;
+  }
+  .name-section label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .input-wrap {
+    position: relative;
+  }
+  .input-wrap svg {
+    position: absolute;
+    left: 14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    width: 18px; height: 18px;
+  }
+  #username {
+    width: 100%;
+    padding: 13px 14px 13px 42px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  #username::placeholder { color: var(--muted); }
+  #username:focus {
+    border-color: rgba(244,156,4,0.5);
+    box-shadow: 0 0 0 3px var(--gold-glow);
+  }
+
+  /* Questions */
+  .question-block {
+    margin-bottom: 24px;
+    animation: fade-up 0.4s ease both;
+  }
+  .question-block .q-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .q-num {
+    min-width: 26px; height: 26px;
+    background: var(--gold-glow);
+    border: 1px solid rgba(244,156,4,0.3);
+    color: var(--gold);
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  .q-text {
+    font-weight: 500;
+    font-size: 0.97rem;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .option-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--card2);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    color: #c8c8d0;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .option-label::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(244,156,4,0.06), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .option-label:hover {
+    border-color: rgba(244,156,4,0.35);
+    color: var(--text);
+    transform: translateY(-1px);
+  }
+  .option-label:hover::before { opacity: 1; }
+
+  .option-label input[type="checkbox"] { display: none; }
+
+  .custom-check {
+    width: 18px; height: 18px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    background: transparent;
+  }
+  .custom-check svg { opacity: 0; transform: scale(0.5); transition: all 0.15s; }
+
+  .option-label.selected {
+    border-color: var(--gold);
+    background: rgba(244,156,4,0.08);
+    color: var(--text);
+  }
+  .option-label.selected .custom-check {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .option-label.selected .custom-check svg { opacity: 1; transform: scale(1); }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--gold), #e08c00);
+    color: #0c0c0e;
+    border: none;
+    border-radius: var(--radius-sm);
+   font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(244,156,4,0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .submit-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(244,156,4,0.35); }
+  .submit-btn:hover::after { opacity: 1; }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn svg { width: 18px; height: 18px; }
+
+  /* Result Screen */
+  #resultScreen {
+    display: none;
+    animation: fade-up 0.7s ease both;
+  }
+  .result-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .result-header .greeting {
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .result-header h2 {
+    font-family: 'Cairo', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .result-header h2 span {
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .dominant-card {
+    background: linear-gradient(135deg, rgba(244,156,4,0.12), rgba(244,156,4,0.04));
+    border: 1px solid rgba(244,156,4,0.3);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .dominant-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(244,156,4,0.2), transparent 70%);
+  }
+  .dominant-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .dominant-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .dominant-desc {
+    font-size: 0.9rem;
+    color: #b0b0bf;
+    line-height: 1.65;
+  }
+
+  /* Bars */
+  .scores-section { margin-bottom: 24px; }
+  .scores-section h3 {
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .score-row {
+    margin-bottom: 14px;
+  }
+  .score-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+  }
+  .score-name { font-weight: 500; color: var(--text); }
+  .score-pts { color: var(--muted); font-size: 0.78rem; }
+  .score-track {
+    height: 6px;
+    background: var(--card2);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .score-fill {
+    height: 100%;
+    border-radius: 100px;
+    width: 0%;
+    transition: width 1s cubic-bezier(0.4,0,0.2,1);
+  }
+  .fill-Analytical { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .fill-Creative   { background: linear-gradient(90deg, #a855f7, #c084fc); }
+  .fill-People     { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  .fill-Leadership { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+
+  /* Traits */
+  .traits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .trait-chip {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #c0c0cc;
+    font-weight: 500;
+  }
+
+  /* Share */
+  .share-section h3 {
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .share-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .share-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .share-btn.fb { background: #1877f2; color: #fff; }
+  .share-btn.wa { background: #25d366; color: #fff; }
+  .share-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .share-btn svg { width: 18px; height: 18px; }
+
+  .retry-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 13px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: var(--radius-sm);
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .retry-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+  /* Animations */
+  @keyframes fade-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fade-down { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fade-in { from { opacity:0; } to { opacity:1; } }
+
+  /* Responsive */
+  @media (max-width: 520px) {
+    .card { padding: 22px 18px; }
+    .options-grid { grid-template-columns: 1fr; }
+    .traits-grid { grid-template-columns: repeat(2, 1fr); }
+    .share-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<div class="container">
-    <img src="logo.png" class="logo" alt="Golden Developer Logo">
-    <h1>Professional Career / Project Personality Test</h1>
+<!-- Particles -->
+<div class="particles" id="particles"></div>
 
-    <div id="quizContainer">
-        <input id="username" placeholder="Enter your name">
+<div class="wrapper">
 
-        <!-- Questions 1-10 -->
-        <div class="question">
-            <p>1. What excites you most in a project?</p>
-            <label><input type="checkbox" name="q1" value="Creative"> Collaborating & brainstorming innovative solutions</label>
-            <label><input type="checkbox" name="q1" value="Analytical"> Analyzing data or solving technical problems</label>
-            <label><input type="checkbox" name="q1" value="People"> Creating or improving tangible products/tools</label>
-            <label><input type="checkbox" name="q1" value="Leadership"> Leading the team/project</label>
-        </div>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Golden Developer" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="logo-placeholder" style="display:none">GD</span>
+    </div>
+    <div class="badge"><span></span> Career Discovery Tool</div>
+    <h1>Discover Your <em>Career DNA</em></h1>
+    <p>Answer 10 questions to reveal how you naturally think, work, and lead — and find the paths built for you.</p>
+  </div>
 
-        <div class="question">
-            <p>2. Which environment makes you productive?</p>
-            <label><input type="checkbox" name="q2" value="Analytical"> Quiet, organized workspace</label>
-            <label><input type="checkbox" name="q2" value="Creative"> Fast-paced, changing environment</label>
-            <label><input type="checkbox" name="q2" value="People"> Open, creative studio</label>
-            <label><input type="checkbox" name="q2" value="Leadership"> Outdoors/on-site with products</label>
-        </div>
-
-        <div class="question">
-            <p>3. What gives you greatest satisfaction?</p>
-            <label><input type="checkbox" name="q3" value="Analytical"> Solving complex problems</label>
-            <label><input type="checkbox" name="q3" value="Creative"> Generating new ideas</label>
-            <label><input type="checkbox" name="q3" value="People"> Helping others / providing service</label>
-            <label><input type="checkbox" name="q3" value="Leadership"> Leading team & achieving results</label>
-        </div>
-
-        <div class="question">
-            <p>4. Facing a new, complex problem, you:</p>
-            <label><input type="checkbox" name="q4" value="Analytical"> Follow procedures & best practices</label>
-            <label><input type="checkbox" name="q4" value="Creative"> Invent a new solution</label>
-            <label><input type="checkbox" name="q4" value="People"> Consult others</label>
-            <label><input type="checkbox" name="q4" value="Leadership"> Guide the team to overcome it</label>
-        </div>
-
-        <div class="question">
-            <p>5. Preferred daily work routine?</p>
-            <label><input type="checkbox" name="q5" value="Analytical"> Highly structured with clear plan</label>
-            <label><input type="checkbox" name="q5" value="Creative"> Mix of planned & unexpected tasks</label>
-            <label><input type="checkbox" name="q5" value="People"> Fast-paced, tight deadlines</label>
-            <label><input type="checkbox" name="q5" value="Leadership"> Flexible & adaptive</label>
-        </div>
-
-        <div class="question">
-            <p>6. In a team, your natural role?</p>
-            <label><input type="checkbox" name="q6" value="Analytical"> Planner / organizer</label>
-            <label><input type="checkbox" name="q6" value="Creative"> Creative thinker / innovator</label>
-            <label><input type="checkbox" name="q6" value="People"> Analyst / quality controller</label>
-            <label><input type="checkbox" name="q6" value="Leadership"> Communicator / leader</label>
-        </div>
-
-        <div class="question">
-            <p>7. What comes naturally to you?</p>
-            <label><input type="checkbox" name="q7" value="Analytical"> Analyzing data & conclusions</label>
-            <label><input type="checkbox" name="q7" value="Creative"> Generating ideas & creative solutions</label>
-            <label><input type="checkbox" name="q7" value="People"> Coordinating people/resources efficiently</label>
-            <label><input type="checkbox" name="q7" value="Leadership"> Motivating & guiding others</label>
-        </div>
-
-        <div class="question">
-            <p>8. Important factor when choosing a project?</p>
-            <label><input type="checkbox" name="q8" value="Analytical"> Clear structure & reliable procedures</label>
-            <label><input type="checkbox" name="q8" value="Creative"> Opportunities to innovate/explore ideas</label>
-            <label><input type="checkbox" name="q8" value="People"> Opportunities to help/impact others</label>
-            <label><input type="checkbox" name="q8" value="Leadership"> Opportunities to lead & drive results</label>
-        </div>
-
-        <div class="question">
-            <p>9. Handling pressure or challenges?</p>
-            <label><input type="checkbox" name="q9" value="Analytical"> Stay calm & follow plan</label>
-            <label><input type="checkbox" name="q9" value="Creative"> Adapt & innovate</label>
-            <label><input type="checkbox" name="q9" value="People"> Work with others to distribute tasks</label>
-            <label><input type="checkbox" name="q9" value="Leadership"> Take charge & guide team</label>
-        </div>
-
-        <div class="question">
-            <p>10. If free to choose work/project, you focus on?</p>
-            <label><input type="checkbox" name="q10" value="Analytical"> Analytical / research projects</label>
-            <label><input type="checkbox" name="q10" value="Creative"> Creative / design projects</label>
-            <label><input type="checkbox" name="q10" value="People"> Service / people-focused projects</label>
-            <label><input type="checkbox" name="q10" value="Leadership"> Leadership / strategic projects</label>
-        </div>
-
-        <button onclick="calculateResult()">See My Profile</button>
+  <!-- Quiz -->
+  <div id="quizScreen">
+    <div class="progress-bar-wrap">
+      <div class="progress-meta">
+        <span>Your Progress</span>
+        <span id="progressLabel">0 / 10 answered</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
     </div>
 
-    <div id="resultCard" class="result">
-        <h2 id="resultTitle"></h2>
+    <div class="card">
+      <!-- Name -->
+      <div class="name-section">
+        <label for="username">Your Name</label>
+        <div class="input-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <input type="text" id="username" placeholder="e.g. Alex Johnson" autocomplete="off">
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- Questions injected here -->
+      <div id="questionsWrap"></div>
+
+      <hr class="divider">
+
+      <button class="submit-btn" onclick="calculateResult()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Reveal My Career Profile
+      </button>
     </div>
+  </div>
+
+  <!-- Result -->
+  <div id="resultScreen">
+    <div class="card">
+      <div class="result-header">
+        <div class="greeting">Your Career Profile</div>
+        <h2 id="resultName"></h2>
+      </div>
+
+      <div class="dominant-card" id="dominantCard">
+        <div class="dominant-label">🏆 Primary Archetype</div>
+        <div class="dominant-title" id="dominantTitle"></div>
+        <div class="dominant-desc" id="dominantDesc"></div>
+      </div>
+
+      <div class="scores-section">
+        <h3>Full Breakdown</h3>
+        <div id="scoreRows"></div>
+      </div>
+
+      <div class="traits-grid" id="traitsGrid"></div>
+
+      <hr class="divider">
+
+      <div class="share-section">
+        <h3>Share Your Profile</h3>
+        <div class="share-grid" id="shareGrid"></div>
+      </div>
+
+      <button class="retry-btn" onclick="resetQuiz()">↩ Retake the Test</button>
+    </div>
+  </div>
+
 </div>
 
 <script>
-const PAGE_URL="https://omniya-sys.github.io/GoldenDeveloperTechnology-MindTest/"
-let username=""
-let scores={Analytical:0, Creative:0, People:0, Leadership:0}
+const PAGE_URL = "https://omniya-sys.github.io/GoldenDeveloperTechnology-MindTest/";
 
-function calculateResult(){
-    username=document.getElementById("username").value || "User"
-    scores={Analytical:0, Creative:0, People:0, Leadership:0}
-    for(let i=1;i<=10;i++){
-        let checked=document.querySelectorAll(`input[name=q${i}]:checked`)
-        checked.forEach(c=>{ scores[c.value]++ })
-    }
-    showResult()
-}
+const questions = [
+  { q: "What excites you most in a project?", options: [
+    { val: "Creative",    text: "Brainstorming & collaborating on innovative solutions" },
+    { val: "Analytical",  text: "Analyzing data or solving technical problems" },
+    { val: "People",      text: "Creating or improving tangible products/tools" },
+    { val: "Leadership",  text: "Leading the team and setting direction" }
+  ]},
+  { q: "Which environment makes you most productive?", options: [
+    { val: "Analytical",  text: "Quiet, organized workspace" },
+    { val: "Creative",    text: "Fast-paced, ever-changing environment" },
+    { val: "People",      text: "Open, collaborative creative studio" },
+    { val: "Leadership",  text: "On-site, dynamic, hands-on setting" }
+  ]},
+  { q: "What gives you the greatest satisfaction?", options: [
+    { val: "Analytical",  text: "Solving complex problems with precision" },
+    { val: "Creative",    text: "Generating new ideas from scratch" },
+    { val: "People",      text: "Helping others and making an impact" },
+    { val: "Leadership",  text: "Leading a team to achieve results" }
+  ]},
+  { q: "Facing a new, complex challenge, you:", options: [
+    { val: "Analytical",  text: "Follow best practices and proven procedures" },
+    { val: "Creative",    text: "Invent a completely new solution" },
+    { val: "People",      text: "Consult others and gather perspectives" },
+    { val: "Leadership",  text: "Guide the team to overcome it together" }
+  ]},
+  { q: "Your preferred daily work routine?", options: [
+    { val: "Analytical",  text: "Highly structured with a clear plan" },
+    { val: "Creative",    text: "A mix of planned and spontaneous tasks" },
+    { val: "People",      text: "Fast-paced with tight deadlines" },
+    { val: "Leadership",  text: "Flexible and fully adaptive" }
+  ]},
+  { q: "In a team, your natural role is:", options: [
+    { val: "Analytical",  text: "Planner & organizer" },
+    { val: "Creative",    text: "Creative thinker & innovator" },
+    { val: "People",      text: "Quality controller & analyst" },
+    { val: "Leadership",  text: "Communicator & decision-maker" }
+  ]},
+  { q: "What comes most naturally to you?", options: [
+    { val: "Analytical",  text: "Analyzing data and drawing conclusions" },
+    { val: "Creative",    text: "Generating ideas and creative solutions" },
+    { val: "People",      text: "Coordinating people and resources" },
+    { val: "Leadership",  text: "Motivating and guiding others" }
+  ]},
+  { q: "What matters most when choosing a project?", options: [
+    { val: "Analytical",  text: "Clear structure and reliable procedures" },
+    { val: "Creative",    text: "Room to innovate and explore ideas" },
+    { val: "People",      text: "Opportunity to help and impact others" },
+    { val: "Leadership",  text: "Opportunity to lead and drive results" }
+  ]},
+  { q: "How do you handle pressure or challenges?", options: [
+    { val: "Analytical",  text: "Stay calm, stick to the plan" },
+    { val: "Creative",    text: "Adapt quickly and innovate on the fly" },
+    { val: "People",      text: "Collaborate and distribute tasks" },
+    { val: "Leadership",  text: "Take charge and steer the team" }
+  ]},
+  { q: "If you could freely choose your work, you'd focus on:", options: [
+    { val: "Analytical",  text: "Analytical or research-driven projects" },
+    { val: "Creative",    text: "Creative or design-forward projects" },
+    { val: "People",      text: "Service or community-focused projects" },
+    { val: "Leadership",  text: "Strategic or leadership-driven projects" }
+  ]}
+];
 
-function showResult(){
+const archetypes = {
+  Analytical: {
+    title: "The Systems Thinker",
+    desc: "You're methodical, data-driven, and precision-focused. You thrive when solving structured problems and extracting meaning from complexity. Your superpower is turning ambiguity into clarity.",
+    traits: ["Data-Driven", "Detail-Oriented", "Methodical", "Research-Focused", "Logical", "Precise"]
+  },
+  Creative: {
+    title: "The Innovator",
+    desc: "You think in possibilities, not limitations. You're energized by open-ended challenges, love experimenting with ideas, and see connections others miss. You bring originality to everything you touch.",
+    traits: ["Imaginative", "Experimental", "Idea-Rich", "Design-Minded", "Curious", "Expressive"]
+  },
+  People: {
+    title: "The Connector",
+    desc: "You're wired for human impact. You excel at understanding needs, building relationships, and creating environments where others succeed. Collaboration and empathy are your greatest strengths.",
+    traits: ["Empathetic", "Collaborative", "Service-Oriented", "Supportive", "Communicative", "Inclusive"]
+  },
+  Leadership: {
+    title: "The Catalyst",
+    desc: "You're built to lead. You take initiative, drive results, and inspire those around you. You see the big picture while keeping the team aligned and moving forward — a natural force multiplier.",
+    traits: ["Decisive", "Strategic", "Goal-Oriented", "Inspiring", "Accountable", "Vision-Driven"]
+  }
+};
 
-    let sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1])
-    let dominant = sorted[0][0]
-
-    const profiles={
-        Analytical:{
-            title:"Analytical Thinker",
-            text:"Your mind is structured and data-driven. You naturally analyze situations, identify patterns, and build logical solutions. You are most effective in environments where precision, research, and systematic thinking are valued.",
-            jobs:"Projects involving research, data analysis, systems design, strategy planning, or technical problem solving."
-        },
-
-        Creative:{
-            title:"Creative Innovator",
-            text:"Your mind thrives on ideas, imagination, and experimentation. You enjoy exploring possibilities, designing new concepts, and thinking beyond traditional solutions.",
-            jobs:"Creative projects, product innovation, design thinking, marketing strategy, content creation, or concept development."
-        },
-
-        People:{
-            title:"People-Focused Collaborator",
-            text:"You naturally connect with others and enjoy supporting teams. Your strength lies in communication, collaboration, and understanding human needs.",
-            jobs:"Projects involving teamwork, client relations, community initiatives, service design, or collaborative environments."
-        },
-
-        Leadership:{
-            title:"Strategic Leader",
-            text:"Your mind focuses on direction, results, and impact. You naturally organize people, make decisions, and move projects forward.",
-            jobs:"Strategic initiatives, project management, operations leadership, business development, or team leadership roles."
-        }
-    }
-
-    let profile = profiles[dominant]
-
-    let resultHTML = `
-        <h2>${username} – ${profile.title}</h2>
-        <p style="margin-top:15px;">
-        ${profile.text}
-        </p>
-
-        <p style="margin-top:15px;">
-        <strong>Projects and work environments that suit you best:</strong><br>
-        ${profile.jobs}
-        </p>
-    `
-
-    document.getElementById("quizContainer").style.display="none"
-
-    let resultCard=document.getElementById("resultCard")
-    resultCard.innerHTML=resultHTML
-    resultCard.style.display="block"
-
-    const text=`I discovered my work mindset at the Golden Developer Career Test. Try it yourself!`
-    const shareText=encodeURIComponent(text+" "+PAGE_URL)
-    const shareURL=encodeURIComponent(PAGE_URL)
-
-    let shareHTML=`
-    <div class="share-buttons">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=${shareURL}&quote=${shareText}" target="_blank">Share on Facebook</a>
-        <a href="https://api.whatsapp.com/send?text=${shareText}" target="_blank">Share on WhatsApp</a>
+// Build questions
+const wrap = document.getElementById("questionsWrap");
+questions.forEach((q, i) => {
+  const div = document.createElement("div");
+  div.className = "question-block";
+  div.style.animationDelay = `${i * 0.04}s`;
+  div.innerHTML = `
+    <div class="q-label">
+      <div class="q-num">${i+1}</div>
+      <div class="q-text">${q.q}</div>
     </div>
-    `
+    <div class="options-grid">
+      ${q.options.map((o, j) => `
+        <label class="option-label" data-q="${i}" data-j="${j}" onclick="selectOption(this, 'q${i+1}', '${o.val}')">
+          <input type="checkbox" name="q${i+1}" value="${o.val}">
+          <div class="custom-check">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0c0c0e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <span>${o.text}</span>
+        </label>
+      `).join('')}
+    </div>
+  `;
+  wrap.appendChild(div);
+});
 
-    resultCard.insertAdjacentHTML("beforeend",shareHTML)
+// Track selections per question
+const selections = {};
+function selectOption(label, name, val) {
+  const q = label.dataset.q;
+  if (!selections[q]) selections[q] = new Set();
+  const cb = label.querySelector('input');
+  if (cb.checked) {
+    cb.checked = false;
+    label.classList.remove("selected");
+    selections[q].delete(val);
+  } else {
+    cb.checked = true;
+    label.classList.add("selected");
+    selections[q].add(val);
+  }
+  updateProgress();
 }
-</script>
 
+function updateProgress() {
+  const answered = Object.values(selections).filter(s => s.size > 0).length;
+  const pct = (answered / 10) * 100;
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("progressLabel").textContent = `${answered} / 10 answered`;
+}
+
+function calculateResult() {
+  const username = document.getElementById("username").value.trim() || "Explorer";
+  const scores = { Analytical: 0, Creative: 0, People: 0, Leadership: 0 };
+  document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+    if (scores[cb.value] !== undefined) scores[cb.value]++;
+  });
+
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const dominant = sorted[0][0];
+  const arch = archetypes[dominant];
+
+  document.getElementById("resultName").innerHTML = `<span>${username}</span>`;
+  document.getElementById("dominantTitle").textContent = arch.title;
+  document.getElementById("dominantDesc").textContent = arch.desc;
+
+  // Score bars
+  const max = Math.max(...Object.values(scores), 1);
+  const rowsWrap = document.getElementById("scoreRows");
+  rowsWrap.innerHTML = sorted.map(([k, v]) => `
+    <div class="score-row">
+      <div class="score-meta">
+        <span class="score-name">${k}</span>
+        <span class="score-pts">${v} / 10</span>
+      </div>
+      <div class="score-track">
+        <div class="score-fill fill-${k}" id="fill-${k}" style="width:0%"></div>
+      </div>
+    </div>
+  `).join('');
+
+  setTimeout(() => {
+    sorted.forEach(([k, v]) => {
+      const el = document.getElementById("fill-" + k);
+      if (el) el.style.width = (v / 10 * 100) + "%";
+    });
+  }, 100);
+
+  // Traits
+  const traitsWrap = document.getElementById("traitsGrid");
+  traitsWrap.innerHTML = arch.traits.map(t => `<div class="trait-chip">${t}</div>`).join('');
+
+  // Share
+  const shareText = encodeURIComponent(`I just discovered I'm "${arch.title}" — find out your Career DNA at Golden Developer! ${PAGE_URL}`);
+  const shareURL = encodeURIComponent(PAGE_URL);
+  document.getElementById("shareGrid").innerHTML = `
+    <a href="https://www.facebook.com/sharer/sharer.php?u=${shareURL}&quote=${shareText}" target="_blank" class="share-btn fb">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      Facebook
+    </a>
+    <a href="https://api.whatsapp.com/send?text=${shareText}" target="_blank" class="share-btn wa">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp
+    </a>
+  `;
+
+  document.getElementById("quizScreen").style.display = "none";
+  document.getElementById("resultScreen").style.display = "block";
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetQuiz() {
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+  document.querySelectorAll('.option-label').forEach(l => l.classList.remove("selected"));
+  Object.keys(selections).forEach(k => delete selections[k]);
+  document.getElementById("username").value = "";
+  updateProgress();
+  document.getElementById("resultScreen").style.display = "none";
+  document.getElementById("quizScreen").style.display = "block";
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Particles
+(function() {
+  const container = document.getElementById("particles");
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement("div");
+    p.className = "particle";
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100 + 100}%;
+      animation-duration: ${8 + Math.random() * 12}s;
+      animation-delay: ${Math.random() * 10}s;
+      width: ${1 + Math.random() * 2}px;
+      height: ${1 + Math.random() * 2}px;
+      opacity: 0;
+    `;
+    container.appendChild(p);
+  }
+})();
+</script>
 </body>
 </html>
