@@ -706,6 +706,11 @@ const questions = [
     { val: "Leadership",  text: "Strategic or leadership-driven projects" }
   ]}
 ];
+ 
+ let answers = [];
+function selectOption(questionIndex, optionValue) {
+  answers[questionIndex] = optionValue;
+}
 
 const archetypes = {
   Analytical: {
@@ -789,11 +794,23 @@ function updateProgress() {
 }
 
 function calculateResult() {
-  const username = document.getElementById("username").value.trim() || "Explorer";
-  const scores = { Analytical: 0, Creative: 0, People: 0, Leadership: 0 };
-  document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
-    if (scores[cb.value] !== undefined) scores[cb.value]++;
+  const counts = { Creative: 0, Analytical: 0, People: 0, Leadership: 0 };
+  
+  answers.forEach(ans => {
+    if (counts[ans] !== undefined) counts[ans]++;
   });
+  
+  let max = 0;
+  let resultType = "";
+  for (const key in counts) {
+    if (counts[key] > max) {
+      max = counts[key];
+      resultType = key;
+    }
+  }
+  
+  return resultType;
+}
 
   const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
   const dominant = sorted[0][0];
